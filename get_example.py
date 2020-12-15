@@ -1,4 +1,4 @@
-import test
+import scrape_functions
 import os
 import json
 import time
