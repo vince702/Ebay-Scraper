@@ -1,0 +1,28 @@
+name: ebay_api_config
+
+# Trading API Sandbox - https://www.x.com/developers/ebay/products/trading-api
+api.sandbox.ebay.com:
+    compatability: 719
+    appid: 'vincentc-pokemon-SBX-a60b9b3c7-ac4da02d'
+    certid: ENTER_YOUR_CERTID_HERE
+    devid: ENTER_YOUR_DEVID_HERE
+    token: ENTER_YOUR_TOKEN_HERE
+
+# Trading API - https://www.x.com/developers/ebay/products/trading-api
+api.ebay.com:
+    compatability: 719
+    appid: 'vincentc-pokemon-SBX-a60b9b3c7-ac4da02d'
+    certid: ENTER_YOUR_CERTID_HERE
+    devid: ENTER_YOUR_DEVID_HERE
+    token: ENTER_YOUR_TOKEN_HERE
+
+# Finding API - https://www.x.com/developers/ebay/products/finding-api
+svcs.ebay.com:
+    X-EBAY-SOA-SECURITY-APPNAME: 'vincentc-pokemon-SBX-a60b9b3c7-ac4da02d'
+    appid: 'vincentc-pokemon-SBX-a60b9b3c7-ac4da02d'
+    version: 1.0.0
+
+# Shopping API - https://www.x.com/developers/ebay/products/shopping-api
+open.api.ebay.com:
+    appid: 'vincentc-pokemon-SBX-a60b9b3c7-ac4da02d'
+    version: 671
