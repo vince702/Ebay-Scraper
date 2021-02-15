@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html>
+<! -- site: flippn.github.io, flippntool at gmail  --> 
+<head>
+<style>
+
+.image {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.loader {
+  border: 7px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 7px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.back {
+  height: 200px;
+   /* For browsers that do not support gradients */
+  background-color: RoyalBlue;
+  background-image: linear-gradient(to right, Orchid , RoyalBlue);
+}
+
+.center {
+  margin: auto;
+  width: 60%;
+  text-align: center;
+  padding: 10px;
+  font-family: Monospace,Consolas,"Menlo Regular";
+  color: LightGoldenRodYellow;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+  font-family: Monospace,Consolas,"Menlo Regular";
+}
+
+.button1 {
+  background-color: #008CBA; 
+  color: LightGoldenRodYellow; 
+  
+  outline:none;
+}
+.button1:hover {
+  background-color: lightblue;
+  color: white;
+  outline:none;
+}
+
+
+
+.centerbutton {
+  margin: auto;
+  width: 60%;
+
+  padding: 10px;
+  font-family: Monospace,Consolas,"Menlo Regular";
+}
+.green_letter{
+  color:green;
+  font-family: verdana;
+}
+.red_letter{
+  color:red;
+  font-family: verdana;
+}
+.blue_letter{
+  color:blue;
+  font-family: verdana;
+}
+
+.gold_letter{
+  color:gold;
+  font-family: verdana;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 12px 0;
+  box-sizing: border-box;
+  border: 6px solid purple;
+  border-radius: 6px;
+  font-size:15px;
+  font-family: verdana;
+  outline:none;
+
+}
+
+
+</style>
+</head>
+
+<body class="back">
+
+
+<br>
+<br>
+<br>
+
+<h1 class="center"><span class= red_letter>E</span><span class=blue_letter>B</span><span class=gold_letter>A</span><span class=green_letter>Y</span> True Sold Price</h1>
+<h3> <div class="center"> Enter the url or id of the listing below: </div> </h3>
+
+
+
+<div class="center">
+<input   id="myInput" type="text" value=" ">
+</div>
+
+
+<div style="text-align:center;">
+    <button class= "button button1" id="myBtn" onclick="myFunction()">Get Price</button>
+</div>
+
+
+<br>
+<p class="center" id="demo"></p>
+
+<script>
+
+
+var input = document.getElementById("myInput");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("myBtn").click();
+  }
+});
+
+
+async function get(url) {
+    
+    let obj = await (await fetch(url)).json();
+    
+    //console.log(obj);
+    return obj;
+}
+
+
+
+
+
+function myFunction() {
+  var x = document.getElementById("myInput");
+  var text = x.value
+  var patt = /\d{12}/i;
+  var listing_id = text.match(patt);
+
+  document.getElementById("demo").innerHTML = '<div class="loader"></div>'
+
+
+  if (listing_id ){
+    
+
+
+
+    var api_url = "https://svhd0fm7qh.execute-api.us-east-2.amazonaws.com/default/actual_price?listing_id=";
+    api_url += listing_id;
+    
+   
+
+    fetch(api_url).then(function (response) {
+      // The API call was successful!
+      return response.json();
+    }).then(function (data) {
+      // This is the JSON from our response
+
+      bin_price = data.bin_price;
+      actual_price = data.actual_price;
+      image_url = data.image_url;
+
+      var text = '<img class = "image" src="'  + image_url + '">' + "<br><br><h3>" + "Listed Price: " + bin_price + "<br>" + "Actual Price: " + actual_price + "<h3>";
+
+
+      document.getElementById("demo").innerHTML = text;
+      console.log(data);
+    }).catch(function (err) {
+      // There was an error
+      console.warn('Something went wrong.', err);
+    });
+    
+
+
+  }
+
+  else{
+    listing_id = "Please Enter a valid URL or 12 digit listing ID"
+    document.getElementById("demo").innerHTML = listing_id;
+  }
+};
+
+</script>
+
+
+
+</body>
+
+</html>
